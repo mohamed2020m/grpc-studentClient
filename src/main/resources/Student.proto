@@ -1,0 +1,29 @@
+syntax = "proto3";
+option java_package = "com.leeuw.grpc.stubs";
+
+message Student {
+  int64 id = 1;
+  string firstNname = 2;
+  string lastName = 3;
+  int64 age = 4;
+}
+message Empty {}
+
+service StudentService {
+  rpc ListStudents(Empty) returns (ListStudentsResponse);
+  rpc GetStudent(GetStudentRequest) returns (Student);
+  rpc ListStudentsStream(Empty) returns (stream Student);
+  rpc CreateStudent(CreateStudentRequest) returns (Student);
+  rpc UpdateStudent(Student) returns (Student);
+  rpc DeleteStudent(DeleteStudentRequest) returns (DeleteStudentResponse);
+}
+
+message ListStudentsResponse { repeated Student students = 1; }
+message GetStudentRequest { int64 id = 1; }
+message DeleteStudentRequest { int64 id = 1; }
+message DeleteStudentResponse { string message = 1; }
+message CreateStudentRequest {
+  string firstNname = 1;
+  string lastName = 2;
+  int64 age = 3;
+}
